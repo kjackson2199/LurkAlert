@@ -4,3 +4,4 @@
 pip install opencv-python-headless
 pip install flask
 pip install flask_sock
+pip install picamera

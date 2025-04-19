@@ -1,5 +1,5 @@
 from flask import Flask, Response
-from flask_sock import sock
+from flask_sock import Sock
 import cv2
 import camera
 import controllers.camera_controller
@@ -7,7 +7,7 @@ import threading
 import time
 
 app = Flask(__name__)
-sock = sock(app)
+sock = Sock(app)
 
 camera = controllers.camera_controller.CameraController(0)
 
