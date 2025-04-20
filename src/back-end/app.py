@@ -14,6 +14,7 @@ sock = Sock(app)
 def initialize_server():
     global sock
     sock = sock(app)
+    camera = controllers.camera_controller.CameraController(0)
 
 def main():
     try:
