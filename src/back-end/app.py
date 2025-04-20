@@ -37,6 +37,13 @@ def main():
         print(f"Error initializing server: {e}")
         shutdown_server(1)
 
+@sock.route('/video_feed_test')
+def test_camera_stream(ws):
+    while True:
+        black_image = np.zeros((480, 640, 3), np.uint8)
+        _, buffer = cv2.imencode('.jpg', black_image)
+        return Response(buffer.tobytes(), mimetype='image/jpeg')
+
 @sock.route('/video_feed')
 def view_camera_stream(ws):
     while True:
