@@ -5,7 +5,6 @@ class Camera:
     def __init__(self):
         self.picam2 = Picamera2()
         self.picam2.configure(picam2.create_preview_configuration(main={"format": 'XRGB8888', "size": (640, 480)}))
-        self.picam2.start()
     
     def start():
         self.picam2.start()
