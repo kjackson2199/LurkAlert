@@ -2,13 +2,13 @@ import cv2
 import numpy as np
 import os
 import time
-import camera
+from camera import Camera as cam
 
 class CameraController:
     def __init__(self, cameraNumber:int, fps=20.0, stop_recording_time_buffer=30):
         self.fourcc = cv2.VideoWriter.fourcc(*'mp4v')
         self.fps = fps
-        self.camera = camera.Camera()
+        self.camera = cam.Camera()
         self.output_file_path = os.getenv("RECORDING_FILE_PATH")
         if not self.output_file_path or not os.path.isdir(self.output_file_path):
             raise ValueError("Invalid or missing RECORDING_FILE_PATH environment variable.")
