@@ -9,16 +9,16 @@ import time
 app = Flask(__name__)
 sock = Sock(app)
 
-# camera = controllers.camera_controller.CameraController(0)
+camera = controllers.camera_controller.CameraController(0)
 
 def initialize_server():
     global sock
     sock = sock(app)
-    camera = controllers.camera_controller.CameraController(0)
 
 def main():
     try:
         initialize_server()
+        camera.test_recording()
         # camera_thread = threading.Thread(target=camera.camera_motion_detect_task, daemon=True)
         # camera_thread.start()
         while True:

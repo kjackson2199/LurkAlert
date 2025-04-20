@@ -70,9 +70,10 @@ class CameraController:
         return fgmask
     
     def test_recording(self):
-        recording_time = 5  # seconds
+        recording_time = 35  # seconds
         start_time = time.time()
         while time.time() - start_time < recording_time:
+            print("Recording...")
             frame = self.camera.read()
             if frame is None:
                 break
@@ -81,6 +82,9 @@ class CameraController:
                 self.start_recording()
             
             self.video_writer.write(frame)
+        
+        print("Stopping recording...")
+        self.stop_recording()
     
     def camera_motion_detect_task(self):
         try:
