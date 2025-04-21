@@ -2,25 +2,24 @@ from flask import Flask, Response
 from flask_sock import Sock
 import cv2
 import camera
-import controllers.camera_controller
 import threading
 import time
 import controllers.camera_controller as camera_controller
+from controllers.camera_controller import init_camera, start_recording, stop_recording, deinit_camera
 
 app = Flask(__name__)
 sock = Sock(app)
-
 
 def initialize_server():
     print("Initializing server...")
     global sock, camera_controller
     # sock = Sock(app)
 
-    camera_controller.init_camera()
+    init_camera()
     time.sleep(10)
-    camera_controller.start_recording()
+    start_recording()
     time.sleep(120)
-    camera_controller.stop_recording()
+    stop_recording()
 
 def main():
     try:
@@ -61,5 +60,5 @@ signal.signal(signal.SIGINT, lambda s, f: shutdown_server())
 signal.signal(signal.SIGTERM, lambda s, f: shutdown_server())
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5333, threaded=True)
     main()
+    app.run(host='0.0.0.0', port=5333, threaded=True)
