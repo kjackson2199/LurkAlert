@@ -1,3 +1,4 @@
+import sys
 import time
 import numpy as np
 import os
@@ -28,7 +29,7 @@ recording = False
 def start_recording():
     print("Starting camera recording...")
     timestamp = time.strftime("%Y%m%d_%H%M%S")
-    filename = os.path.join(output_file_path, f"recording{timestamp}.mp4")
+    filename = os.path.join(output_file_path, f"recording_{timestamp}.mp4")
     encoder = H264Encoder(10000000)
     output = FfmpegOutput(filename, audio=False)
     picam2.start_recording(encoder, output)
@@ -47,7 +48,9 @@ def stop_recording():
     recording = False
     picam2.stop_recording()
     picam2.stop()
-    print("Recording stopped.")
+    sys.stdout.write('\033[2K\r')  # Clear the line
+    sys.stdout.write(f"Recording stopped.")
+    sys.stdout.flush()
 
 def recording_time_elapsed_task(start_time):
     while recording:
@@ -56,6 +59,6 @@ def recording_time_elapsed_task(start_time):
         time.sleep(0.1)
 
 start_recording()
-time.sleep(30)
+time.sleep(.5 * 60)
 stop_recording()
 picam2.stop()
