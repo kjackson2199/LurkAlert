@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import os
 import time
-import camera as cam
+import controllers.camera as cam
 
 class CameraController:
     def __init__(self, cameraNumber:int, fps=20.0, stop_recording_time_buffer=30):
