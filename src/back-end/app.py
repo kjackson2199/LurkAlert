@@ -18,8 +18,7 @@ def initialize_server():
 def main():
     try:
         initialize_server()
-        camera_thread = threading.Thread(target=camera.camera_motion_detect_task, daemon=True)
-        camera_thread.start()
+        camera.test_recording()
         while True:
             time.sleep(1)
 
@@ -46,17 +45,18 @@ def test_camera_stream(ws):
 
 @sock.route('/video_feed')
 def view_camera_stream(ws):
-    while True:
-        feed = camera.capture_frame()
-        if feed is None:
-            break
-        ws.send(feed)
-        ws.sleep(0.1/camera.fps)
+    return "NOT IMPLEMENTED"
+    # while True:
+    #     feed = camera.capture_frame()
+    #     if feed is None:
+    #         break
+    #     ws.send(feed)
+    #     ws.sleep(0.1/camera.fps)
 
 def shutdown_server(error=0):
-    camera.stop_recording()
-    camera.camera.release()
-    print("Server shut down.")
+    # camera.stop_recording()
+    # camera.camera.release()
+    # print("Server shut down.")
     exit(error)
 
 import signal
