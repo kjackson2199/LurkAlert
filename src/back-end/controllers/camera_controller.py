@@ -10,6 +10,7 @@ class CameraController:
         self.fps = fps
         self.camera = cam.Camera()
         self.output_file_path = os.getenv("RECORDING_FILE_PATH")
+        print(f"Recording file path: {self.output_file_path}")
         if not self.output_file_path or not os.path.isdir(self.output_file_path):
             raise ValueError("Invalid or missing RECORDING_FILE_PATH environment variable.")
         
