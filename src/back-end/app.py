@@ -18,7 +18,7 @@ def initialize_server():
 def main():
     try:
         initialize_server()
-        
+        camera.test_recording()
         while True:
             time.sleep(1)
 
