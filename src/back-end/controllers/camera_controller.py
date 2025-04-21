@@ -16,6 +16,8 @@ output_file_path = "/home/lurk/recordings"
 if not os.path.exists(output_file_path):
     os.makedirs(output_file_path)
 
+print(f"Output file path: {output_file_path}")
+
 def init_camera():
     global picam2, recording_thread
     global recording_active

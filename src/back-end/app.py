@@ -8,12 +8,11 @@ import time
 import controllers.camera_controller as camera_controller
 
 app = Flask(__name__)
-sock = Sock(app)
+# sock = Sock(app)
 
-camera = None
 
 def initialize_server():
-    global sock
+    global sock, camera_controller
     sock = sock(app)
 
     camera_controller.init_camera()
