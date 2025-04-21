@@ -4,35 +4,12 @@ import threading
 import time
 import signal
 import sys
-from controllers.camera_controller import (
-    init_camera, start_recording, stop_recording, deinit_camera
-)
 
 app = Flask(__name__)
 sock = Sock(app)
 
 def initialize_server():
-    print("Initializing server...")
-    global sock, camera_controller
-    # sock = Sock(app)
-
-    # init_camera()
-    # time.sleep(10)
-    # start_recording()
-    # time.sleep(120)
-    # stop_recording()
-
-def recording_sequence():
-    try:
-        print("Initializing camera sequence...")
-        init_camera()
-        time.sleep(2)
-        start_recording()
-        time.sleep(120)
-        stop_recording()
-    except Exception as e:
-        print(f"Recording error: {e}")
-        shutdown_server(1)
+    pass
 
 def main():
     try:
@@ -55,17 +32,8 @@ def main():
 @sock.route('/video_feed')
 def view_camera_stream(ws):
     return "NOT IMPLEMENTED"
-    # while True:
-    #     feed = camera.capture_frame()
-    #     if feed is None:
-    #         break
-    #     ws.send(feed)
-    #     ws.sleep(0.1/camera.fps)
 
 def shutdown_server(error=0):
-    # camera.stop_recording()
-    # camera.camera.release()
-    # print("Server shut down.")
     exit(error)
 
 import signal
@@ -75,7 +43,3 @@ signal.signal(signal.SIGTERM, lambda s, f: shutdown_server())
 if __name__ == '__main__':
     # main()
     app.run(host='0.0.0.0', port=5333, threaded=True)
-
-    recording_thread = threading.Thread(target=recording_sequence, daemon=True)
-    recording_thread.start()
-    
