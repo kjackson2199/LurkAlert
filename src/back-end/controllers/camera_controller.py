@@ -2,7 +2,6 @@ import cv2
 import numpy as np
 import os
 import time
-import lurk_camera as cam
 from lurk_camera import start_recording, stop_recording, capture_frame
 
 class CameraController:
@@ -22,6 +21,7 @@ class CameraController:
         self.fgfb = cv2.createBackgroundSubtractorMOG2(detectShadows=True)
     
     def start_recording(self):
+        start_recording()
         if hasattr(self, 'video_writer'):
             return
         width = int(self.camera.get(cv2.CAP_PROP_FRAME_WIDTH))
@@ -33,6 +33,7 @@ class CameraController:
             raise RuntimeError("Failed to open video writer. Recording stopped.")
     
     def stop_recording(self):
+        stop_recording()
         if hasattr(self, 'video_writer'):
             self.video_writer.release()
             del self.video_writer
@@ -40,9 +41,7 @@ class CameraController:
             return
         
     def detect_motion(self):
-        success, frame = self.camera.read()
-        if not success:
-            return None
+        frame = capture_frame()
         
         fgmask = self.fgfb.apply(frame)
         
