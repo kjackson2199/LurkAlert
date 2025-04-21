@@ -5,6 +5,8 @@ import time
 import signal
 import sys
 
+import controllers.camera
+
 app = Flask(__name__)
 sock = Sock(app)
 
@@ -42,4 +44,10 @@ signal.signal(signal.SIGTERM, lambda s, f: shutdown_server())
 
 if __name__ == '__main__':
     # main()
-    app.run(host='0.0.0.0', port=5333, threaded=True)
+    # app.run(host='0.0.0.0', port=5333, threaded=True)
+    from controllers.camera import camera
+    camera.start_recording()
+    time.sleep(.25 * 60)
+    camera.stop_recording()
+    time.sleep(5)
+    camera.release()
