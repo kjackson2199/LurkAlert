@@ -4,7 +4,6 @@ import cv2
 import camera
 import threading
 import time
-import controllers.camera_controller as camera_controller
 from controllers.camera_controller import init_camera, start_recording, stop_recording, deinit_camera
 
 app = Flask(__name__)

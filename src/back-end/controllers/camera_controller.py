@@ -19,9 +19,14 @@ if not os.path.exists(output_file_path):
 print(f"Output file path: {output_file_path}")
 
 def init_camera():
-    print("Initializing camera...")
     global picam2, recording_thread
     global recording_active
+
+    if picam2 is not None:
+        print("Camera already initialized.")
+        return
+    
+    print("Initializing camera...")
 
     picam2 = Picamera2()
     video_resolution = (2028, 1080)
@@ -56,7 +61,7 @@ def recording_task():
 
 def stop_recording():
     global recording_active
-    
+
     print("Stopping recording...")
     picam2.stop_recording()
 
