@@ -3,12 +3,12 @@ import numpy as np
 import os
 import time
 import lurk_camera as cam
+from lurk_camera import start_recording, stop_recording, capture_frame
 
 class CameraController:
     def __init__(self, cameraNumber:int, fps=20.0, stop_recording_time_buffer=30):
         self.fourcc = cv2.VideoWriter.fourcc(*'mp4v')
         self.fps = fps
-        self.camera = cam.Camera()
         self.output_file_path = os.getenv("RECORDING_FILE_PATH")
         print(f"Recording file path: {self.output_file_path}")
         if not self.output_file_path or not os.path.isdir(self.output_file_path):
@@ -20,23 +20,6 @@ class CameraController:
         self.stop_recording_time_buffer = stop_recording_time_buffer # How many seconds to wait before stopping the recording once motion is no longer detected
 
         self.fgfb = cv2.createBackgroundSubtractorMOG2(detectShadows=True)
-
-        self.camera.start()
-    
-    def capture_frame(self):
-        frame = self.camera.read()
-        
-        ret, buffer = cv2.imencode('.jpg', frame)
-        if not ret:
-            return 
-        
-        if self.motion_detected:
-            if not hasattr(self, 'video_writer'):
-                self.start_recording()
-            self.video_writer.write(frame)
-            self.recording_start_time = time.time()
-        
-        return buffer.tobytes()
     
     def start_recording(self):
         if hasattr(self, 'video_writer'):
@@ -75,7 +58,7 @@ class CameraController:
         start_time = time.time()
         while time.time() - start_time < recording_time:
             print("Recording...")
-            frame = self.camera.read()
+            frame = capture_frame()
             if frame is None:
                 break
             

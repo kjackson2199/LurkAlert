@@ -18,9 +18,7 @@ def initialize_server():
 def main():
     try:
         initialize_server()
-        camera.test_recording()
-        # camera_thread = threading.Thread(target=camera.camera_motion_detect_task, daemon=True)
-        # camera_thread.start()
+        
         while True:
             time.sleep(1)
 
