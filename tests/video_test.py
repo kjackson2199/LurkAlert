@@ -12,5 +12,5 @@ encoder = H264Encoder(10000000)
 output = FfmpegOutput('test.mp4', audio=False)
 
 picam2.start_recording(encoder, output)
-time.sleep(10)
+time.sleep(30)
 picam2.stop_recording()

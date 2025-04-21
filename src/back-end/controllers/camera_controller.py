@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import os
 import time
-import controllers.camera as cam
+import lurk_camera as cam
 
 class CameraController:
     def __init__(self, cameraNumber:int, fps=20.0, stop_recording_time_buffer=30):
@@ -71,7 +71,7 @@ class CameraController:
         return fgmask
     
     def test_recording(self):
-        recording_time = 35  # seconds
+        recording_time = 60  # seconds
         start_time = time.time()
         while time.time() - start_time < recording_time:
             print("Recording...")
