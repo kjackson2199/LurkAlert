@@ -5,22 +5,26 @@ import camera
 import controllers.camera_controller
 import threading
 import time
+import controllers.camera_controller as camera_controller
 
 app = Flask(__name__)
 sock = Sock(app)
 
-camera = controllers.camera_controller.CameraController(0)
+camera = None
 
 def initialize_server():
     global sock
     sock = sock(app)
 
+    camera_controller.init_camera()
+    time.sleep(10)
+    camera_controller.start_recording()
+    time.sleep(120)
+    camera_controller.stop_recording()
+
 def main():
     try:
         initialize_server()
-        camera.test_recording()
-        while True:
-            time.sleep(1)
 
     except KeyboardInterrupt:
         shutdown_server()
