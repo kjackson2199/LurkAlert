@@ -1,10 +1,12 @@
 from flask import Flask, Response
 from flask_sock import Sock
-import cv2
-import camera
 import threading
 import time
-from controllers.camera_controller import init_camera, start_recording, stop_recording, deinit_camera
+import signal
+import sys
+from controllers.camera_controller import (
+    init_camera, start_recording, stop_recording, deinit_camera
+)
 
 app = Flask(__name__)
 sock = Sock(app)
@@ -14,11 +16,23 @@ def initialize_server():
     global sock, camera_controller
     # sock = Sock(app)
 
-    init_camera()
-    time.sleep(10)
-    start_recording()
-    time.sleep(120)
-    stop_recording()
+    # init_camera()
+    # time.sleep(10)
+    # start_recording()
+    # time.sleep(120)
+    # stop_recording()
+
+def recording_sequence():
+    try:
+        print("Initializing camera sequence...")
+        init_camera()
+        time.sleep(2)
+        start_recording()
+        time.sleep(120)
+        stop_recording()
+    except Exception as e:
+        print(f"Recording error: {e}")
+        shutdown_server(1)
 
 def main():
     try:
@@ -59,5 +73,9 @@ signal.signal(signal.SIGINT, lambda s, f: shutdown_server())
 signal.signal(signal.SIGTERM, lambda s, f: shutdown_server())
 
 if __name__ == '__main__':
-    main()
+    # main()
     app.run(host='0.0.0.0', port=5333, threaded=True)
+
+    recording_thread = threading.Thread(target=recording_sequence, daemon=True)
+    recording_thread.start()
+    
