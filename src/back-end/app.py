@@ -8,12 +8,13 @@ import time
 import controllers.camera_controller as camera_controller
 
 app = Flask(__name__)
-# sock = Sock(app)
+sock = Sock(app)
 
 
 def initialize_server():
+    print("Initializing server...")
     global sock, camera_controller
-    sock = sock(app)
+    # sock = Sock(app)
 
     camera_controller.init_camera()
     time.sleep(10)
@@ -61,3 +62,4 @@ signal.signal(signal.SIGTERM, lambda s, f: shutdown_server())
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5333, threaded=True)
+    main()

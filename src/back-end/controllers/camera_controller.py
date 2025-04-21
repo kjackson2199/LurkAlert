@@ -19,6 +19,7 @@ if not os.path.exists(output_file_path):
 print(f"Output file path: {output_file_path}")
 
 def init_camera():
+    print("Initializing camera...")
     global picam2, recording_thread
     global recording_active
 
@@ -34,6 +35,7 @@ def init_camera():
     print("Camera on standby...")
 
 def start_recording():
+    print("Starting recording...")
     global recording_active, recording_thread
     if recording_thread is not None and recording_thread.is_alive():
         print("Recording already in progress.")
@@ -52,11 +54,12 @@ def recording_task():
         elapsed_time = int(time.time() - recording_start_time)
         print(f'Elapsed time: {elapsed_time // 60:02}:{elapsed_time % 60:02}', end='\r', flush=True)
 
+def stop_recording():
+    global recording_active
+    
     print("Stopping recording...")
     picam2.stop_recording()
 
-def stop_recording():
-    global recording_active
     recording_active = False
     if recording_thread is not None:
         recording_thread.join()
