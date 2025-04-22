@@ -15,9 +15,12 @@ const CameraControl: React.FC = () => {
                 body: JSON.stringify({ record: !isRecording }),
             });
 
-            if (response.ok) {
+            if (!response.ok) {
                 throw new Error("Failed to start recording");
             }
+
+            setIsRecording(!isRecording);
+            
         } catch (error) {
             console.error("Error:", error);
         }
@@ -25,7 +28,7 @@ const CameraControl: React.FC = () => {
 
     return(
         <div>
-            <ControlButton useImage={false} imageUri="" onClick={handleRecordClick} />
+            <ControlButton buttonText={isRecording ? ("Stop"):("Start")} useImage={false} imageUri="" onClick={handleRecordClick} />
         </div>
     );
 };
