@@ -1,4 +1,6 @@
 source variables.sh
+
+cd $USER_HOME
 # update script for LurkAlert
 # This script is intended to be run as root
 # check if the script is run as root
@@ -6,8 +8,6 @@ if [ "$EUID" -ne 0 ]; then
     echo "Please run as root"
     exit
 fi
-
-cd $USER_HOME
 
 # Check if zip file exists
 if [ -f "master.zip" ]; then
