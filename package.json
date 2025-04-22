@@ -2,9 +2,9 @@
     "name": "my-project",
     "version": "1.0.0",
     "scripts": {
-      "start": "concurrently \"npm run start --prefix src/frontend\" \"npm run start --prefix src/back-end\""
+        "start": "concurrently \"npm run start --prefix src/frontend\" \"npm run start --prefix src/back-end\""
     },
     "devDependencies": {
-      "concurrently": "^8.2.0"
+        "concurrently": "^8.2.2"
     }
-  }
+}

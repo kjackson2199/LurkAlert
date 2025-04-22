@@ -85,7 +85,7 @@ const FeedViewer: React.FC = () => {
                 <img className="video" src={videoFrame.src} alt="Video Frame" style={{ width: "640px", height: "360px", borderRadius: "10px", display: "flex" }} />
             ) : (
                 <div className="video-placeholder" style={{ width: "640px", height: "360px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    Loading video feed...
+                    Connecting to video feed...
                 </div>
             )}
         </div>
