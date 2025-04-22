@@ -1,4 +1,4 @@
-from flask import Flask, Response, request, jsonify
+from flask import Flask, Response, request, jsonify, send_from_directory
 from flask_sock import Sock
 from flask_cors import cross_origin
 
@@ -11,7 +11,7 @@ import requests
 
 from controllers.camera import camera
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="../frontend/build", static_url_path="/")
 sock = Sock(app)
 
 def initialize_server():
@@ -68,7 +68,7 @@ def view_camera_stream(ws):
 
 @app.route("/")
 def index():
-    return Response(open('index.html').read(), mimetype='text/html')
+    return send_from_directory(app.static_folder, "index.html")
 
 def shutdown_server(error=0):
     print("Shutting down camera...")
