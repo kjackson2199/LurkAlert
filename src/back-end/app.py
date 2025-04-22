@@ -51,9 +51,6 @@ def view_camera_stream(ws):
     print("Client connected to /video_feed")
     try:
         while True:
-            if ws.closed:
-                break
-
             frame = camera.capture_frame()
             ret, jpeg = cv2.imencode('.jpg', frame)
             if not ret:
@@ -71,8 +68,10 @@ def index():
     return Response(open('index.html').read(), mimetype='text/html')
 
 def shutdown_server(error=0):
+    print("Shutting down camera...")
     camera.stop_recording()
     camera.release()
+    print("Exiting server...")
     exit(error)
 
 import signal
