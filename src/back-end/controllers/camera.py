@@ -34,7 +34,7 @@ class CameraManager:
     def start_recording(self):
         if self.recording:
             print("Already recording.")
-            return
+            return "Already recording."
         print("Starting camera recording...")
         timestamp = time.strftime("%Y%m%d_%H%M%S")
         filename = os.path.join(self.output_file_path, f"recording_{timestamp}.mp4")
@@ -49,10 +49,12 @@ class CameraManager:
             target=self._recording_time_elapsed_task, daemon=True
         )
         self._elapsed_time_thread.start()
+        return "Recording..."
 
     def stop_recording(self):
         if not self.recording:
             return
+        
         sys.stdout.write('\033[2K\r')
         sys.stdout.write(f"Stopping the recording...\n")
         sys.stdout.flush()

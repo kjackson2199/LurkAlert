@@ -44,10 +44,11 @@ def start_recording():
     global recording_active, recording_thread
     if recording_thread is not None and recording_thread.is_alive():
         print("Recording already in progress.")
-        return
+        return "Recording already in progress."
     recording_active = True
     recording_thread = threading.Thread(target=recording_task, daemon=True)
     recording_thread.start()
+    print("Recording started")
 
 def recording_task():
     filename = os.path.join(output_file_path, f"recording_{time.strftime('%Y%m%d_%H%M%S')}.mp4")
