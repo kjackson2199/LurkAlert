@@ -1,26 +1,23 @@
-from flask import Flask, Response
+from flask import Flask, Response, request, jsonify
 from flask_sock import Sock
-import cv2
-import camera
-import controllers.camera_controller
 import threading
 import time
+import signal
+import sys
+import cv2
+import requests
+
+from controllers.camera import camera
 
 app = Flask(__name__)
 sock = Sock(app)
 
-camera = controllers.camera_controller.CameraController(0)
-
 def initialize_server():
-    global sock
-    sock = sock(app)
+    pass
 
 def main():
     try:
         initialize_server()
-        camera.test_recording()
-        while True:
-            time.sleep(1)
 
     except KeyboardInterrupt:
         shutdown_server()
@@ -36,27 +33,46 @@ def main():
         print(f"Error initializing server: {e}")
         shutdown_server(1)
 
-@sock.route('/video_feed_test')
-def test_camera_stream(ws):
-    while True:
-        black_image = np.zeros((480, 640, 3), np.uint8)
-        _, buffer = cv2.imencode('.jpg', black_image)
-        return Response(buffer.tobytes(), mimetype='image/jpeg')
+app.route("/record", methods=['POST'])
+def record():
+    response = {'method':'/record'}
+
+    data = request.get_json()
+    start = data.get('record')
+    if start == "true":
+        response['message'] = camera.start_recording()
+    else:
+        response['message'] = camera.stop_recording()
+    
+    return jsonify(response)
 
 @sock.route('/video_feed')
 def view_camera_stream(ws):
-    return "NOT IMPLEMENTED"
-    # while True:
-    #     feed = camera.capture_frame()
-    #     if feed is None:
-    #         break
-    #     ws.send(feed)
-    #     ws.sleep(0.1/camera.fps)
+    print("Client connected to /video_feed")
+    try:
+        while True:
+            if ws.closed:
+                break
+
+            frame = camera.capture_frame()
+            ret, jpeg = cv2.imencode('.jpg', frame)
+            if not ret:
+                continue
+
+            ws.send(jpeg.tobytes())
+            time.sleep(1.0/20) # ~20 FPS
+    except Exception as e:
+        print(f"Error in video stream: {e}")
+    finally:
+        print("Client disconnected")
+
+@app.route("/")
+def index():
+    return Response(open('index.html').read(), mimetype='text/html')
 
 def shutdown_server(error=0):
-    # camera.stop_recording()
-    # camera.camera.release()
-    # print("Server shut down.")
+    camera.stop_recording()
+    camera.release()
     exit(error)
 
 import signal
