@@ -1,0 +1,20 @@
+@import "../styles/theme.css";
+
+.control-button {
+    width: fit-content;
+    height: fit-content;
+    min-height: 50px;
+    background-color: transparent;
+    border: none;
+    color: var(--color-text);
+    font-size: 1.1rem;
+    font-family: 'Orbitron', sans-serif;
+    border-radius: 8px;
+}
+
+.control-button:hover {
+    cursor: pointer;
+    background-color: var(--color-surface-alt);
+    color: var(--color-text-special);
+    text-shadow: var(--glow-primary), 0 0 10px var(--color-text-special-glow);
+}
