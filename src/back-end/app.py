@@ -1,5 +1,7 @@
 from flask import Flask, Response, request, jsonify
 from flask_sock import Sock
+from flask_cors import cross_origin
+
 import threading
 import time
 import signal
@@ -34,6 +36,7 @@ def main():
         shutdown_server(1)
 
 app.route("/record", methods=['POST'])
+@cross_origin()
 def record():
     response = {'method':'/record'}
 
