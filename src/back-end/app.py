@@ -10,6 +10,8 @@ import cv2
 import requests
 
 from controllers.camera import camera
+from controllers.camera_command_processor import CameraCommandProcessor
+camera_thread = CameraCommandProcessor(camera)
 
 app = Flask(__name__, static_folder="../frontend/build", static_url_path="/")
 sock = Sock(app)
@@ -45,9 +47,11 @@ def record():
     start = data.get('record')
     print(f"Recieved JSON: {data}")
     if start == "start":
-        response['message'] = camera.start_recording()
+        camera_thread.send_command('start')
+        response['message'] = "Requested start recording"
     else:
-        response['message'] = camera.stop_recording()
+        camera_thread.send_command('stop')
+        response['message'] = "Requested stop recording"
     
     return jsonify(response)
 
@@ -58,6 +62,7 @@ def view_camera_stream(ws):
         while True:
             frame = camera.capture_frame()
             if frame is None:
+                time.sleep(0.1)
                 continue
             
             ret, jpeg = cv2.imencode('.jpg', frame)
