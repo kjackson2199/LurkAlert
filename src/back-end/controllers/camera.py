@@ -40,13 +40,20 @@ class CameraManager:
         print("Starting camera recording...")
 
         self.picam2.stop()
+        self.picam2.release()
+
+        time.sleep(2)
+
+        self.picam2.start()
+
+        time.sleep(2)
 
         timestamp = time.strftime("%Y%m%d_%H%M%S")
         filename = os.path.join(self.output_file_path, f"recording_{timestamp}.mp4")
         encoder = H264Encoder(10000000)
         output = FfmpegOutput(filename, audio=False)
 
-        self.picam2.start_recording(encoder, output)
+        self.picam2.start_encoder(encoder, output)
         print("Recording...", end='\r', flush=True)
 
         self.recording = True
@@ -66,7 +73,7 @@ class CameraManager:
         sys.stdout.write(f"Stopping the recording...\n")
         sys.stdout.flush()
 
-        self.picam2.stop_recording()
+        self.picam2.stop_encoder()
 
         sys.stdout.write('\033[2K\r')
         sys.stdout.write(f"Recording stopped.\n")
