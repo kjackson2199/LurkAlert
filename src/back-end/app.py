@@ -36,7 +36,7 @@ def main():
         print(f"Error initializing server: {e}")
         shutdown_server(1)
 
-app.route("/record", methods=['POST', 'OPTIONS'])
+@app.route("/record", methods=['POST', 'OPTIONS'])
 @cross_origin(origins="*")
 def record():
     response = {'method':'/record'}
