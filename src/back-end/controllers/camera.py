@@ -38,12 +38,17 @@ class CameraManager:
             print("Already recording.")
             return "Already recording."
         print("Starting camera recording...")
+
+        self.picam2.stop()
+
         timestamp = time.strftime("%Y%m%d_%H%M%S")
         filename = os.path.join(self.output_file_path, f"recording_{timestamp}.mp4")
         encoder = H264Encoder(10000000)
         output = FfmpegOutput(filename, audio=False)
+
         self.picam2.start_recording(encoder, output)
         print("Recording...", end='\r', flush=True)
+
         self.recording = True
 
         self._start_time = time.time()
@@ -61,11 +66,17 @@ class CameraManager:
         sys.stdout.write(f"Stopping the recording...\n")
         sys.stdout.flush()
 
-        self.recording = False
         self.picam2.stop_recording()
+
         sys.stdout.write('\033[2K\r')
         sys.stdout.write(f"Recording stopped.\n")
         sys.stdout.flush()
+        time.sleep(2)
+
+        self.picam2.start()
+        time.sleep(2)
+
+        self.recording = False
 
     def _recording_time_elapsed_task(self):
         while self.recording:
@@ -76,7 +87,7 @@ class CameraManager:
     def capture_frame(self):
         if self.recording:
             return None
-        return self.picam2.capture_array("lores")
+        return self.picam2.capture_array()
 
     def release(self):
         if self.picam2:
