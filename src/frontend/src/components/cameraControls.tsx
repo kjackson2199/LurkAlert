@@ -7,12 +7,13 @@ const CameraControl: React.FC = () => {
 
     const handleRecordClick = async () => {
         try{
+            const recordCommand: string = isRecording ? "stop" : "start";
             const response = await fetch("http://100.100.111.72:5333/record", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ record: "start" }),
+                body: JSON.stringify({ record: recordCommand }),
             });
 
             if (!response.ok) {
