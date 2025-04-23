@@ -23,7 +23,7 @@ class CameraManager:
         video_config = self.picam2.create_video_configuration(
             sensor={'output_size': mode['size'], 'bit_depth': mode['bit_depth']},
             main={"format": 'RGB888', "size": video_res},
-            lores={"format": "YUV420", "size": (640, 480)}
+            lores={"format": "YUV420", "size": (640, 480)},
             display="lores"
         )
         self.picam2.configure(video_config)
@@ -40,12 +40,8 @@ class CameraManager:
         print("Starting camera recording...")
 
         self.picam2.stop()
-        self.picam2.release()
-
         time.sleep(2)
-
         self.picam2.start()
-
         time.sleep(2)
 
         timestamp = time.strftime("%Y%m%d_%H%M%S")
@@ -53,7 +49,7 @@ class CameraManager:
         encoder = H264Encoder(10000000)
         output = FfmpegOutput(filename, audio=False)
 
-        self.picam2.start_encoder(encoder, output)
+        self.picam2.start_recording(encoder, output)
         print("Recording...", end='\r', flush=True)
 
         self.recording = True
@@ -73,7 +69,8 @@ class CameraManager:
         sys.stdout.write(f"Stopping the recording...\n")
         sys.stdout.flush()
 
-        self.picam2.stop_encoder()
+        self.picam2.stop_recording()
+        self.picam2.stop()
 
         sys.stdout.write('\033[2K\r')
         sys.stdout.write(f"Recording stopped.\n")
