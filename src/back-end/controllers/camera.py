@@ -22,7 +22,9 @@ class CameraManager:
         mode = self.picam2.sensor_modes[1]
         video_config = self.picam2.create_video_configuration(
             sensor={'output_size': mode['size'], 'bit_depth': mode['bit_depth']},
-            main={"format": 'RGB888', "size": video_res}
+            main={"format": 'RGB888', "size": video_res},
+            lores={"format": "YUV420", "size": (640, 480)}
+            display="lores"
         )
         self.picam2.configure(video_config)
         print("Starting camera...")
@@ -72,7 +74,9 @@ class CameraManager:
             time.sleep(0.1)
 
     def capture_frame(self):
-        return self.picam2.capture_array()
+        if self.recording:
+            return None
+        return self.picam2.capture_array("lores")
 
     def release(self):
         if self.picam2:

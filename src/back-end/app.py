@@ -57,6 +57,9 @@ def view_camera_stream(ws):
     try:
         while True:
             frame = camera.capture_frame()
+            if frame is None:
+                continue
+            
             ret, jpeg = cv2.imencode('.jpg', frame)
             if not ret:
                 continue
