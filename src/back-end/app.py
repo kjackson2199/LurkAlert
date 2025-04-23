@@ -98,10 +98,12 @@ def list_files():
             stats = os.stat(filepath)
             files.append({
                 'fileName': filename,
-                'fileSize': round(stats.st_size / (1024 * 1024, 2)),
-                "fileDate": datetime.datetime.fromtimestamp(os.path.getmtime(filepath)).isoformat()
+                'fileSize': os.path.getsize(filepath) // 1024 / 1024,
+                "fileDate": datetime.datetime.fromtimestamp(os.path.getmtime(filepath)).isoformat(),
                 'videoLength': 0
             })
+    
+    return jsonify(files)
 
 def shutdown_server(error=0):
     print("Shutting down camera...")
