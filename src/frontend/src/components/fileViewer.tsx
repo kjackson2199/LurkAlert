@@ -1,8 +1,16 @@
 import React, { useEffect } from "react";
 import VideoFileItem from "./videoFileItem";
 
+interface VideoFile {
+    key: string;
+    fileName: string;
+    videoLength: string;
+    fileSize: number;
+    fileDate: string;
+}
+
 const FileViewer: React.FC = () => {
-    const [files, setFiles] = React.useState<any[]>([]); // Adjust the type as needed
+    const [files, setFiles] = React.useState<VideoFile[]>([]) // Adjust the type as needed
     const [loading, setLoading] = React.useState(true);
 
     useEffect(() => {
@@ -14,10 +22,19 @@ const FileViewer: React.FC = () => {
                     throw new Error("Failed to fetch files");
                 }
                 const data = await response.json();
-                setFiles(data.files); // Adjust based on the actual response structure
-                setLoading(false);
+                console.log("Fetched data:", data);
+
+                // Safe check for data.files
+                if (Array.isArray(data.files)) {
+                    setFiles(data.files);
+                } else {
+                    console.warn("Expected 'files' to be an array, got:", data.files);
+                    setFiles([]); // fallback to empty array
+                }
             } catch (error) {
                 console.error("Error fetching files:", error);
+                setLoading(false);
+            } finally {
                 setLoading(false);
             }
         }
@@ -36,16 +53,14 @@ const FileViewer: React.FC = () => {
                 <p>No files available</p>
             ) : (
                 <ul className="file-list">
-                    {/* <VideoFileItem fileName="example.mp4" videoLength="00:01:30" fileSize={10} fileDate="2023-10-01T12:00:00Z" onClick={() => {}} />
-                    <VideoFileItem fileName="example2.mp4" videoLength="00:02:15" fileSize={20} fileDate="2023-10-02T12:00:00Z" onClick={() => {}} /> */}
-                    {files.map((file, index) => (
+                    {files.map((file) => (
                         <VideoFileItem
-                            key={index}
-                            fileName={file.name} // Adjust based on the actual file object structure
-                            videoLength={file.length} // Adjust based on the actual file object structure
-                            fileSize={file.size} // Adjust based on the actual file object structure
-                            fileDate={file.date} // Adjust based on the actual file object structure
-                            onClick={() => console.log(`Clicked on ${file.name}`)} // Replace with your click handler
+                        key={file.fileName}
+                        fileName={file.fileName}
+                        videoLength={file.videoLength}
+                        fileSize={file.fileSize}
+                        fileDate={file.fileDate}
+                        onClick={() => console.log(`Clicked on ${file.fileName}`)}
                         />
                     ))}
                 </ul>
