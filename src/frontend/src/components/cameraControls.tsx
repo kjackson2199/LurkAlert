@@ -12,7 +12,7 @@ const CameraControl: React.FC = () => {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ record: !isRecording }),
+                body: JSON.stringify({ record: "start" }),
             });
 
             if (!response.ok) {

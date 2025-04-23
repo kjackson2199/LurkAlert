@@ -1,6 +1,6 @@
 from flask import Flask, Response, request, jsonify, send_from_directory
 from flask_sock import Sock
-from flask_cors import cross_origin
+from flask_cors import cross_origin, CORS
 
 import threading
 import time
@@ -13,6 +13,7 @@ from controllers.camera import camera
 
 app = Flask(__name__, static_folder="../frontend/build", static_url_path="/")
 sock = Sock(app)
+CORS(app, supports_credentials=True)
 
 def initialize_server():
     pass
@@ -35,14 +36,15 @@ def main():
         print(f"Error initializing server: {e}")
         shutdown_server(1)
 
-app.route("/record", methods=['POST'])
-@cross_origin()
+app.route("/record", methods=['POST', 'OPTIONS'])
+@cross_origin(origins="*")
 def record():
     response = {'method':'/record'}
 
     data = request.get_json()
     start = data.get('record')
-    if start == "true":
+    print(f"Recieved JSON: {data}")
+    if start == "start":
         response['message'] = camera.start_recording()
     else:
         response['message'] = camera.stop_recording()
