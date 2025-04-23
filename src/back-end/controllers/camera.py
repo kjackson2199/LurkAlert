@@ -17,6 +17,7 @@ class CameraManager:
         return cls._instance
 
     def _init_camera(self):
+        self.lock = threading.Lock()
         self.picam2 = Picamera2()
         video_res = (2028, 1080)
         mode = self.picam2.sensor_modes[1]
@@ -34,53 +35,56 @@ class CameraManager:
         self.output_file_path = "/home/lurk/recordings"
 
     def start_recording(self):
-        if self.recording:
-            print("Already recording.")
-            return "Already recording."
-        print("Starting camera recording...")
+        with self.lock:
+            if self.recording:
+                print("Already recording.")
+                return "Already recording."
+            print("Starting camera recording...")
 
-        self.picam2.stop()
-        time.sleep(2)
-        self.picam2.start()
-        time.sleep(2)
+            self.picam2.stop()
+            time.sleep(2)
+            self.picam2.start()
+            time.sleep(2)
 
-        timestamp = time.strftime("%Y%m%d_%H%M%S")
-        filename = os.path.join(self.output_file_path, f"recording_{timestamp}.mp4")
-        encoder = H264Encoder(10000000)
-        output = FfmpegOutput(filename, audio=False)
+            timestamp = time.strftime("%Y%m%d_%H%M%S")
+            filename = os.path.join(self.output_file_path, f"recording_{timestamp}.mp4")
+            encoder = H264Encoder(10000000)
+            output = FfmpegOutput(filename, audio=False)
 
-        self.picam2.start_recording(encoder, output)
-        print("Recording...", end='\r', flush=True)
+            self.picam2.start_recording(encoder, output)
+            print("Recording...", end='\r', flush=True)
 
-        self.recording = True
+            self.recording = True
 
-        self._start_time = time.time()
-        self._elapsed_time_thread = threading.Thread(
-            target=self._recording_time_elapsed_task, daemon=True
-        )
-        self._elapsed_time_thread.start()
-        return "Recording..."
+            self._start_time = time.time()
+            self._elapsed_time_thread = threading.Thread(
+                target=self._recording_time_elapsed_task, daemon=True
+            )
+            self._elapsed_time_thread.start()
+            return "Recording..."
 
     def stop_recording(self):
-        if not self.recording:
-            return
-        
-        sys.stdout.write('\033[2K\r')
-        sys.stdout.write(f"Stopping the recording...\n")
-        sys.stdout.flush()
+        with self.lock:
+            if not self.recording:
+                return
+            
+            sys.stdout.write('\033[2K\r')
+            sys.stdout.write(f"Stopping the recording...\n")
+            sys.stdout.flush()
 
-        self.picam2.stop_recording()
-        self.picam2.stop()
+            self.picam2.stop_recording()
+            self.picam2.stop()
 
-        sys.stdout.write('\033[2K\r')
-        sys.stdout.write(f"Recording stopped.\n")
-        sys.stdout.flush()
-        time.sleep(2)
+            sys.stdout.write('\033[2K\r')
+            sys.stdout.write(f"Recording stopped.\n")
+            sys.stdout.flush()
+            time.sleep(2)
 
-        self.picam2.start()
-        time.sleep(2)
+            self.picam2.start()
+            time.sleep(2)
 
-        self.recording = False
+            self.recording = False
+            return "Recording stopped"
 
     def _recording_time_elapsed_task(self):
         while self.recording:

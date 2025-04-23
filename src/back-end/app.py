@@ -87,4 +87,8 @@ signal.signal(signal.SIGINT, lambda s, f: shutdown_server())
 signal.signal(signal.SIGTERM, lambda s, f: shutdown_server())
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5333, threaded=True)
+    app.run(host='0.0.0.0', port=5333, threaded=False)
+    # camera.start_recording()
+    # time.sleep(20)
+    # camera.stop_recording()
+    # camera.release()
