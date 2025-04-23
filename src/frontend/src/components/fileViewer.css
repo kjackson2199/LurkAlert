@@ -1,0 +1,16 @@
+.file-viewer{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.file-list{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+    max-height: 400px;
+    padding: 10px;
+    list-style: square;
+    border-radius: 8px;
+}
