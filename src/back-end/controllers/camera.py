@@ -7,6 +7,12 @@ from picamera2 import Picamera2
 from picamera2.encoders import H264Encoder
 from picamera2.outputs import FfmpegOutput
 
+class CameraState(Enum):
+    IDLE = "idle"
+    RECORDING = "recording"
+    STOPPING = "stopping"
+    ERROR = "error"
+
 class CameraManager:
     _instance = None
 
@@ -17,6 +23,7 @@ class CameraManager:
         return cls._instance
 
     def _init_camera(self):
+        self.state = CameraState.IDLE
         self.lock = threading.Lock()
         self.picam2 = Picamera2()
         video_res = (2028, 1080)
@@ -36,6 +43,10 @@ class CameraManager:
 
     def start_recording(self):
         with self.lock:
+            if self.state != CameraState.IDLE:
+                print(f"Cannot start recording. Current state: {self.state}")
+                return "Camera not ready"
+            
             if self.recording:
                 print("Already recording.")
                 return "Already recording."
@@ -53,6 +64,8 @@ class CameraManager:
 
             try:
                 self.picam2.start_recording(encoder, output)
+                self.state = CameraState.RECORDING
+
             except Exception as e:
                 print(f"Failed to start recording: {e}")
                 return f"Recording failed: {e}"
@@ -70,9 +83,15 @@ class CameraManager:
 
     def stop_recording(self):
         with self.lock:
+            if self.state != CameraState.RECORDING:
+                print("Not currently recording")
+                return
+            
             if not self.recording:
                 return
             
+            self.state = CameraState.STOPPING
+
             sys.stdout.write('\033[2K\r')
             sys.stdout.write(f"Stopping the recording...\n")
             sys.stdout.flush()
@@ -88,6 +107,8 @@ class CameraManager:
             self.picam2.start()
             time.sleep(2)
 
+            self.state = CameraState.IDLE
+            
             self.recording = False
             return "Recording stopped"
 

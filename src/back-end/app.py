@@ -55,6 +55,11 @@ def record():
     
     return jsonify(response)
 
+@app.route('/camera_state')
+@cross_origin(origins="*")
+def camera_state():
+    return jsonify({"state": camera.state.value})
+
 @sock.route('/video_feed')
 def view_camera_stream(ws):
     print("Client connected to /video_feed")
