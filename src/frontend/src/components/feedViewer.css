@@ -28,3 +28,17 @@
     background-color: var(--color-surface-alt);
     border: 1px solid var(--color-text-special-glow);
 }
+
+.recording-indicator{
+  width: 640px;
+  height: 340px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: red;
+  text-shadow: 0 0 10px #ff4949;
+  background-color: #380000;
+  border: 1px solid red;
+}

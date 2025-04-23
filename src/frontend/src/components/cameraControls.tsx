@@ -29,7 +29,7 @@ const CameraControl: React.FC = () => {
 
     return(
         <div>
-            <ControlButton buttonText={isRecording ? ("Stop"):("Start")} useImage={false} imageUri="" onClick={handleRecordClick} />
+            <ControlButton buttonText={isRecording ? ("Stop Recording"):("Start Recording")} useImage={false} imageUri="" onClick={handleRecordClick} />
         </div>
     );
 };
