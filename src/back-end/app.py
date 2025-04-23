@@ -8,6 +8,8 @@ import signal
 import sys
 import cv2
 import requests
+import os
+import datetime
 
 from controllers.camera import camera
 from controllers.camera_command_processor import CameraCommandProcessor
@@ -84,6 +86,22 @@ def view_camera_stream(ws):
 @app.route("/")
 def index():
     return send_from_directory(app.static_folder, "index.html")
+
+@app.route('/files', methods=['GET'])
+@cross_origin(origins="*")
+def list_files():
+    folder = camera.output_file_path
+    files = []
+    for filename in os.listdir(folder):
+        if filename.endswith(".mp4"):
+            filepath = os.path.join(folder, filename)
+            stats = os.stat(filepath)
+            files.append({
+                'fileName': filename,
+                'fileSize': round(stats.st_size / (1024 * 1024, 2)),
+                "fileDate": datetime.datetime.fromtimestamp(os.path.getmtime(filepath)).isoformat()
+                'videoLength': 0
+            })
 
 def shutdown_server(error=0):
     print("Shutting down camera...")
