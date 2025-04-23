@@ -51,7 +51,12 @@ class CameraManager:
             encoder = H264Encoder(10000000)
             output = FfmpegOutput(filename, audio=False)
 
-            self.picam2.start_recording(encoder, output)
+            try:
+                self.picam2.start_recording(encoder, output)
+            except Exception as e:
+                print(f"Failed to start recording: {e}")
+                return f"Recording failed: {e}"
+            
             print("Recording...", end='\r', flush=True)
 
             self.recording = True
@@ -73,12 +78,12 @@ class CameraManager:
             sys.stdout.flush()
 
             self.picam2.stop_recording()
+            time.sleep(2)
             self.picam2.stop()
 
             sys.stdout.write('\033[2K\r')
             sys.stdout.write(f"Recording stopped.\n")
             sys.stdout.flush()
-            time.sleep(2)
 
             self.picam2.start()
             time.sleep(2)
