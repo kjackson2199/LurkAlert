@@ -111,9 +111,9 @@ const FeedViewer: React.FC = () => {
             </div>
           ) : (
               videoFrame && !streamTimeout ? (
-                  <img className="video" src={videoFrame.src} alt="Video Frame" style={{ width: "640px", height: "360px", borderRadius: "10px", display: "flex" }} />
+                  <img className="video" src={videoFrame.src} alt="Video Frame" style={{ borderRadius: "10px", display: "flex" }} />
               ) : (
-                  <div className="video-placeholder" style={{ width: "640px", height: "360px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <div className="video-placeholder" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                       Connecting to video feed...
                   </div>
               )

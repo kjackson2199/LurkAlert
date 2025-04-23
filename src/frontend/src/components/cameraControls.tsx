@@ -1,5 +1,6 @@
 import React from "react";
 import ControlButton from "./button";
+import "./cameraControls.css";
 
 const CameraControl: React.FC = () => {
     const [isRecording, setIsRecording] = React.useState(false);
@@ -28,7 +29,7 @@ const CameraControl: React.FC = () => {
     };
 
     return(
-        <div>
+        <div className="control-panel">
             <ControlButton buttonText={isRecording ? ("Stop Recording"):("Start Recording")} useImage={false} imageUri="" onClick={handleRecordClick} />
         </div>
     );

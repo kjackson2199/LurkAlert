@@ -5,7 +5,7 @@ import CameraControl from "./components/cameraControls";
 
 const App: React.FC = () => {
   return(
-    <div>
+    <div style={{ width: "100%", height: "100%", maxWidth: "640", justifyContent: "center", alignItems: "center", display: "flex", flexDirection: "column"}}>
       <h1>Lurk Alert</h1>
       <FeedViewer />
       <CameraControl />
