@@ -10,9 +10,9 @@ const App: React.FC = () => {
     <div style={{ width: "100%", height: "100%", maxWidth: "640", justifyContent: "center", alignItems: "center", display: "flex", flexDirection: "column"}}>
       <h1>Lurk Alert</h1>
       {/* <VideoFileItem videoLength="1:40" fileName="FILENAME.mp4" fileSize={100} fileDate="05/23/1765" onClick={() => {}} /> */}
+      <FeedViewer />
+      <CameraControl />
       <FileViewer />
-      {/* <FeedViewer /> */}
-      {/* <CameraControl /> */}
     </div>
   );
 }
