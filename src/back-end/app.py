@@ -105,6 +105,12 @@ def list_files():
     
     return jsonify({"files":files})
 
+@app.route('/download/<path:filename>', methods=['GET'])
+@cross_origin(origins="*")
+def download_file(filename):
+    folder = camera.output_file_path
+    return send_from_directory(folder, filename, as_attachment=True)
+
 def shutdown_server(error=0):
     print("Shutting down camera...")
     camera.stop_recording()
