@@ -4,6 +4,7 @@ import ControlButton from "./components/button";
 import CameraControl from "./components/cameraControls";
 import VideoFileItem from "./components/videoFileItem";
 import FileViewer, { FileViewerRef } from "./components/fileViewer";
+import SystemStatusViewer from "./components/systemStatusViewer";
 
 const App: React.FC = () => {
   const fileViewerRef = React.useRef<FileViewerRef>(null);
@@ -13,14 +14,20 @@ const App: React.FC = () => {
     }
   }
   return(
-    <div style={{ width: "100%", height: "100%", maxWidth: "640", justifyContent: "center", alignItems: "center", display: "flex", flexDirection: "column"}}>
+    <div style={{ width: "100%", maxWidth: "640", justifyContent: "center", alignItems: "center", display: "flex", flexDirection: "column"}}>
       <h1>Lurk Alert</h1>
-      {/* <VideoFileItem videoLength="1:40" fileName="FILENAME.mp4" fileSize={100} fileDate="05/23/1765" onClick={() => {}} /> */}
-      <FeedViewer />
-      <CameraControl />
-      <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100%" }}>
-        <ControlButton buttonText="Refresh" onClick={handleFetchClick} />
+      <div style={{ display: "block", flexDirection: "column", width: "100%", height: "50vh" }}>
+        <div style={{ display: "flex", flexDirection: "row", width: "100%" }}>
+          <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
+            <FeedViewer />
+            <CameraControl />
+          </div>
+          <div>
+            <SystemStatusViewer />
+          </div>
+        </div>
       </div>
+      <ControlButton buttonText="Refresh" onClick={handleFetchClick} />
       <FileViewer ref={fileViewerRef} />
     </div>
   );
