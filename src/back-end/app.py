@@ -19,6 +19,10 @@ app = Flask(__name__, static_folder="../frontend/build", static_url_path="/")
 sock = Sock(app)
 CORS(app, supports_credentials=True)
 
+from controllers.system_status import SystemStatus
+
+system_status = SystemStatus()
+
 def initialize_server():
     pass
 
@@ -39,6 +43,11 @@ def main():
     except Exception as e:
         print(f"Error initializing server: {e}")
         shutdown_server(1)
+
+@app.route("/system_status")
+@cross_origin(origins="*")
+def status_endpoint():
+    return jsonify(system_status.get_status_object())
 
 @app.route("/record", methods=['POST', 'OPTIONS'])
 @cross_origin(origins="*")

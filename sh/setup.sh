@@ -33,3 +33,4 @@ pip install flask
 pip install flask_sock
 pip install flask-cors
 pip install picamera2
+pip install psutil
