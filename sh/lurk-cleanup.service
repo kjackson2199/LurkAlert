@@ -1,0 +1,6 @@
+[Unit]
+Description=Delete old video recordings
+
+[Service]
+Type=onshot
+ExecStart=/home/lurk/LurkAlert/sh/cleanup_recordings.sh

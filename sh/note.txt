@@ -1,0 +1,7 @@
+Enable & Start the Timer:
+sudo systemctl daemon-reexec
+sudo systemctl daemon-reload
+sudo systemctl enable --now lurk-cleanup.timer
+
+You can verify it’s working:
+systemctl list-timers | grep lurk-cleanup
