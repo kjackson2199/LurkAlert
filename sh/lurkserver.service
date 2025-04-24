@@ -3,8 +3,8 @@ Description=Lurk Alert Flask Server
 After=network.target
 
 [Service]
-ExecStart=~/LurkAlert/sh/start_server.sh
-WorkingDirectory=~/LurkAlert/src/back-end
+ExecStart=/home/lurk/LurkAlert/sh/start_server.sh
+WorkingDirectory=/home/lurk/LurkAlert/src/back-end
 Restart=always
 User=lurk
 Environment=PYTHONUNBUFFERED=1
