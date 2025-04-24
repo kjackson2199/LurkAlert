@@ -1,4 +1,4 @@
-input[type="checkbox"]{
+/* input[type="checkbox"]{
     display: flex;
     width: 15px;
     height: 15px;
@@ -7,13 +7,13 @@ input[type="checkbox"]{
     border: none;
     border-radius: 50%;
     border-right: 1px solid #ccc;
-}
+} */
 
 li{
     width: 100%;
     display: flex;
-    align-items: center;
-    padding: 10px 5px;
+    /* align-items: center; */
+    padding: 5px;
     border-bottom: 1px solid #ccc;
     border-radius: 10px;
     margin-bottom: 10px;
@@ -28,17 +28,47 @@ li:hover{
 
 div{
     width: 100%;
-    min-width: 340px;
+    min-width: 150px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: left;
     margin-left: 10px;
     margin-right: 10px;
+    /* border-right: 1px solid #ccc; */
+}
+
+.video-file-name{
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+    text-overflow: ellipsis;
+    border-right: 1px solid #ccc;
+}
+
+.video-file-length{
+    border-right: 1px solid #ccc;
+}
+
+.video-file-date{
+    justify-content: right;
+    padding-right: 20px;
     border-right: 1px solid #ccc;
 }
 
 .video-file-size{
     justify-content: right;
     padding-right: 20px;
+    border-right: 1px solid #ccc;
+}
+
+button{
+    background-color: transparent;
+    border: none;
+    color: var(--color-text-special);
+    font-size: small;
+    cursor: pointer;
+    justify-content: right;
+    align-items: right;
+    align-content: right;
 }

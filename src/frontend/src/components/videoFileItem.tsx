@@ -33,14 +33,12 @@ const VideoFileItem: React.FC<VideoFileItemProps> = ({ fileName, videoLength, fi
 
     return (
         <li className="video-file-item" onClick={onClick}>
-            <label><input type="checkbox" /></label>
+            {/* <label><input type="checkbox" /></label> */}
             <div className="video-file-name">{fileName}</div>
             <div className="video-file-length">{videoLength}</div>
             <div className="video-file-date">{new Date(fileDate).toLocaleString()}</div>
             <div className="video-file-size">{fileSize} MB</div>
-            <div>
-                <button className="download-button" onClick={handleDownload}>Download</button>
-            </div>
+            <button className="download-button" onClick={handleDownload}>Download</button>
         </li>
     );
 }

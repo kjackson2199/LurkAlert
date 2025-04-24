@@ -1,16 +1,15 @@
 .file-viewer{
-    display: flex;
-    flex-direction: column;
+    /* display: flex; */
+    /* flex-direction: column;
     gap: 10px;
+    width: 50%;
+    max-height: 100px; */
 }
 
 .file-list{
-    display: flex;
+    /* display: flex;
     flex-direction: column;
     gap: 10px;
-    overflow-y: auto;
-    max-height: 400px;
     padding: 10px;
-    list-style: square;
-    border-radius: 8px;
+    list-style: square; */
 }
