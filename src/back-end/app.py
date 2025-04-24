@@ -72,7 +72,9 @@ def view_camera_stream(ws):
                 time.sleep(0.1)
                 continue
             
-            ret, jpeg = cv2.imencode('.jpg', frame)
+            frame = cv2.resize(frame, (640, 360))
+            encode_params = [int(cv2.IMWRITE_JPEG_QUALITY, 70)]
+            ret, jpeg = cv2.imencode('.jpg', frame, encode_params)
             if not ret:
                 continue
 

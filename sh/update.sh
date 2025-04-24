@@ -1,4 +1,4 @@
-source variables.sh
+source /home/lurk/LurkAlert/sh/variables.sh
 
 cd $USER_HOME
 # update script for LurkAlert
