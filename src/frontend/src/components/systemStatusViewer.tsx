@@ -7,6 +7,9 @@ interface Status{
     memory_total: number;
     memory_percent: number;
     cpu_temp: number;
+    free_disk_space: number;
+    total_disk_space: number;
+    percent_disk_space_used: number;
 }
 
 const SystemStatusViewer: React.FC = () => {
@@ -45,6 +48,9 @@ const SystemStatusViewer: React.FC = () => {
                         <th>Memory Total</th>
                         <th>Memory Percentage</th>
                         <th>CPU Temp</th>
+                        <th>Free Disk Space</th>
+                        <th>Disk Space Total</th>
+                        <th>Disk Space Percentage</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -54,6 +60,9 @@ const SystemStatusViewer: React.FC = () => {
                         <td>{status?.memory_total != null ? status.memory_total : "---"}</td>
                         <td>{status?.memory_percent != null ? status.memory_percent : "--"}%</td>
                         <td>{status?.cpu_temp != null ? status.cpu_temp : "--"}°C</td>
+                        <td>{status?.free_disk_space != null ? status.free_disk_space : "---"}</td>
+                        <td>{status?.total_disk_space != null ? status.total_disk_space : "---"}</td>
+                        <td>{status?.percent_disk_space_used != null ? status.percent_disk_space_used : "--"}%</td>
                     </tr>
                 </tbody>
                 <tfoot>

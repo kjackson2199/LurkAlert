@@ -12,6 +12,9 @@ class SystemStatus:
         self.memory_total = 0
         self.memory_percent = 0
         self.cpu_temp_c = 0
+        self.free_disk_space = 0
+        self.percent_disk_space_used = 0
+        self.total_disk_space = 0
 
         self.update()
     
@@ -21,10 +24,16 @@ class SystemStatus:
         obj['uptime_string'] = self._uptime_str
         obj['uptime_seconds'] = self._uptime_seconds
         obj['recording_time_elapsed'] = self._recording_time_elapsed
+        
         obj['memory_used'] = self.memory_used
         obj['memory_total'] = self.memory_total
         obj['memory_percent'] = self.memory_percent
+
         obj['cpu_temp'] = self.cpu_temp_c
+
+        obj['free_disk_space'] = self.free_disk_space
+        obj['percent_disk_space_used'] = self.percent_disk_space_used
+        obj['total_disk_space'] = self.total_disk_space
 
         return {'system_status': obj}
     
@@ -51,6 +60,12 @@ class SystemStatus:
             cpu_temp = temps["cpu_thermal"][0].current if "cpu_thermal" in temps else None
         except Exception:
             cpu_temp = None
+        
+        disk_usage = psutil.disk_usage('/')
+
+        self.free_disk_space = disk_usage.free
+        self.total_disk_space = disk_usage.total
+        self.percent_disk_space_used = disk_usage.percent
         
         self.cpu_usage = cpu_usage
         self.memory_used = memory_used_mb
