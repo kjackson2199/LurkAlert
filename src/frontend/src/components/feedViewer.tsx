@@ -100,7 +100,7 @@ const FeedViewer: React.FC = () => {
       }, []);
     
     return(
-        <div className="videoFeedContainder">
+        <div className="videoFeedContainer">
           {cameraState === "recording" ? (
             <div className="recording-indicator">
               Recording...
@@ -111,9 +111,9 @@ const FeedViewer: React.FC = () => {
             </div>
           ) : (
               videoFrame && !streamTimeout ? (
-                  <img className="video" src={videoFrame.src} alt="Video Frame" style={{ borderRadius: "10px", display: "flex" }} />
+                  <img className="video" src={videoFrame.src} alt="Video Frame" />
               ) : (
-                  <div className="video-placeholder" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <div className="video-placeholder">
                       Connecting to video feed...
                   </div>
               )

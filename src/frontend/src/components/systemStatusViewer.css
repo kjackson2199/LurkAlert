@@ -16,16 +16,12 @@
 
 .system-status-table tr{
     width: 100%;
-    display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: center;
 }
 
 .system-status-table th, td{
     width: 100%;
-    display: flex;
-    flex-direction: row;
     justify-content: center;
     font-size: small;
     min-width: 50px;
@@ -36,10 +32,8 @@
 
 .system-status-table button{
     width: 100%;
-    display: flex;
     background-color: transparent;
     border: none;
-    flex-direction: row;
     justify-content: center;
     font-size: medium;
     min-width: 50px;
@@ -57,4 +51,20 @@
     box-shadow: 0 0 5px var(--color-text-special-glow);
     cursor: pointer;
     border-radius: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .system-status-table th, td{
+        font-size: 0.75rem;
+    }
+
+    .system-status-table th, td{
+        padding: 6px;
+    }
+
+    .system-status-table button{
+        font-size: small;
+        padding: 6px;
+    }
+    
 }
