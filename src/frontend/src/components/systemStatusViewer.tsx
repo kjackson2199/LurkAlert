@@ -60,8 +60,8 @@ const SystemStatusViewer: React.FC = () => {
                         <td>{status?.memory_total != null ? status.memory_total : "---"}</td>
                         <td>{status?.memory_percent != null ? status.memory_percent : "--"}%</td>
                         <td>{status?.cpu_temp != null ? status.cpu_temp : "--"}°C</td>
-                        <td>{status?.free_disk_space != null ? status.free_disk_space : "---"}</td>
-                        <td>{status?.total_disk_space != null ? status.total_disk_space : "---"}</td>
+                        <td>{status?.free_disk_space != null ? status.free_disk_space : "---"} GB</td>
+                        <td>{status?.total_disk_space != null ? status.total_disk_space : "---"} GB</td>
                         <td>{status?.percent_disk_space_used != null ? status.percent_disk_space_used : "--"}%</td>
                     </tr>
                 </tbody>

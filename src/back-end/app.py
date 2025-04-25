@@ -122,6 +122,20 @@ def download_file(filename):
     folder = camera.output_file_path
     return send_from_directory(folder, filename, as_attachment=True)
 
+@app.route("/delete/<path:filename>", methods=['POST'])
+@cross_origin(origins="*")
+def delete_file(filename):
+    response = {}
+    folder = camera.output_file_path
+    try:
+        os.remove(os.path.join(folder, filename))
+        response['status'] = "success"
+
+    except Exception as e:
+        response['status'] = "failed"
+
+    return jsonify(response)
+
 def shutdown_server(error=0):
     print("Shutting down camera...")
     camera.stop_recording()

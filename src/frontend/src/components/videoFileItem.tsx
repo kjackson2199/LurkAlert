@@ -31,6 +31,26 @@ const VideoFileItem: React.FC<VideoFileItemProps> = ({ fileName, videoLength, fi
         document.body.removeChild(link);
     };
 
+    const handleDelete = async () => {
+        try{
+            const confirmation = window.confirm(`Are you sure you want to delete ${fileName}?`);
+            if (!confirmation) return;
+    
+            const url = `http://100.100.111.72:5333/delete/${encodeURIComponent(fileName)}`;
+            const response = await fetch(url, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            if (!response.ok) {
+                throw new Error("Failed to delete file");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    };
+
     return (
         <li className="video-file-item" onClick={onClick}>
             {/* <label><input type="checkbox" /></label> */}
@@ -39,6 +59,7 @@ const VideoFileItem: React.FC<VideoFileItemProps> = ({ fileName, videoLength, fi
             <div className="video-file-date">{new Date(fileDate).toLocaleString()}</div>
             <div className="video-file-size">{fileSize} MB</div>
             <button className="download-button" onClick={handleDownload}>Download</button>
+            <button className="delete-button" onClick={handleDelete}>Delete</button>
         </li>
     );
 }

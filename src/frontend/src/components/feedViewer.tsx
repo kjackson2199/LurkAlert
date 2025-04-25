@@ -101,7 +101,7 @@ const FeedViewer: React.FC = () => {
     
     return(
         <div className="videoFeedContainder">
-          {cameraState === "recording" || cameraState === "stopping" ? (
+          {cameraState === "recording" ? (
             <div className="recording-indicator">
               Recording...
             </div>

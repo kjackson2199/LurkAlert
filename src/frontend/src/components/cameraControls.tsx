@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ControlButton from "./button";
 import "./cameraControls.css";
 
 const CameraControl: React.FC = () => {
     const [isRecording, setIsRecording] = React.useState(false);
     const [isTakingPhoto, setIsTakingPhoto] = React.useState(false);
+    const [cameraState, setCameraState] = React.useState<string>("unknown");
+
+    useEffect(() => {
+        handleCheckCameraStatus();
+    }, []);
 
     const handleRecordClick = async () => {
         try{
-            const recordCommand: string = isRecording ? "stop" : "start";
+            const recordCommand: string = isRecording || cameraState === "recording" ? "stop" : "start";
             const response = await fetch("http://100.100.111.72:5333/record", {
                 method: "POST",
                 headers: {
@@ -21,6 +26,7 @@ const CameraControl: React.FC = () => {
                 throw new Error("Failed to start recording");
             }
 
+            await handleCheckCameraStatus();
             setIsRecording(!isRecording);
             
         } catch (error) {
@@ -28,9 +34,27 @@ const CameraControl: React.FC = () => {
         }
     };
 
+    const handleCheckCameraStatus = async () => {
+        try{
+            const url = `http://100.100.111.72:5333/camera_state`;
+            const data = await fetch(url);
+            const jsonData = await data.json();
+            setCameraState(jsonData.state);
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    };
+
     return(
         <div className="control-panel">
-            <ControlButton buttonText={isRecording ? ("Stop Recording"):("Start Recording")} useImage={false} imageUri="" onClick={handleRecordClick} />
+            {cameraState === "stopping" || cameraState === "starting" ? null 
+            : cameraState === "idle" ? (
+                <ControlButton buttonText="Start Recording" useImage={false} imageUri="" onClick={handleRecordClick} />
+            ) : cameraState === "recording" ? (
+                <ControlButton buttonText="Stop Recording" useImage={false} imageUri="" onClick={handleRecordClick} />
+            ) : (
+                <p>Camera state unknown</p>
+            )}
         </div>
     );
 };
