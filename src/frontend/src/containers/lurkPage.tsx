@@ -24,8 +24,8 @@ const LurkPage: React.FC = () => {
                 <div className="right-pane">
                     <SystemStatusViewer />
                 </div>
-                {/* <ControlButton buttonText="Refresh" onClick={handleFetchClick} />
-                <FileViewer ref={fileViewerRef} /> */}
+                {/* <ControlButton buttonText="Refresh" onClick={handleFetchClick} /> */}
+                {/* <FileViewer ref={fileViewerRef} /> */}
             </div>
         </div>
     )

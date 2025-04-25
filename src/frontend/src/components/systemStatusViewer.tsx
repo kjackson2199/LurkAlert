@@ -43,14 +43,38 @@ const SystemStatusViewer: React.FC = () => {
                 <caption>System Status</caption>
                 <thead>
                     <tr>
-                        <th>Uptime</th>
-                        <th>Memory Used</th>
-                        <th>Memory Total</th>
-                        <th>Memory Percentage</th>
-                        <th>CPU Temp</th>
-                        <th>Free Disk Space</th>
-                        <th>Disk Space Total</th>
-                        <th>Disk Space Percentage</th>
+                        <th>
+                            <span className="desktop-label">Uptime</span>
+                            <span className="mobile-label">Uptime</span>
+                        </th>
+                        <th>
+                            <span className="desktop-label">Memory Used</span>
+                            <span className="mobile-label">Mem. Used</span>
+                        </th>
+                        <th>
+                            <span className="desktop-label">Memory Total</span>
+                            <span className="mobile-label">Mem. Total</span>
+                        </th>
+                        <th>
+                            <span className="desktop-label">Memory Total</span>
+                            <span className="mobile-label">Mem. (%)</span>
+                        </th>
+                        <th>
+                            <span className="desktop-label">CPU Temp</span>
+                            <span className="mobile-label">CPU (°C)</span>
+                        </th>
+                        <th>
+                            <span className="desktop-label">Free Disk Space</span>
+                            <span className="mobile-label">Disk (Free)</span>
+                        </th>
+                        <th>
+                            <span className="desktop-label">Disk Space Total</span>
+                            <span className="mobile-label">Disk (Total)</span>
+                        </th>
+                        <th>
+                            <span className="desktop-label">Disk Space Percentage</span>
+                            <span className="mobile-label">Disk (%)</span>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -67,7 +91,7 @@ const SystemStatusViewer: React.FC = () => {
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colSpan={5}>
+                        <td colSpan={8}>
                             <button className="refresh-button" onClick={fetchSystemStatus}>Refresh</button>
                         </td>
                     </tr>
