@@ -5,7 +5,7 @@
     border-collapse: collapse;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 20px var(--color-surface);
     background-color: var(--color-surface-alt);
     color: var(--color-text);
     table-layout: fixed;
@@ -13,6 +13,8 @@
 
 .system-status-table caption{
     font-size: medium;
+    padding: 10px;
+    text-shadow: 0 8px 20px var(--color-surface);
 }
 
 .system-status-table thead{
@@ -64,7 +66,7 @@
     display: none;
     }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1000px) {
     .system-status-table th, td{
         font-size: 0.5rem;
     }

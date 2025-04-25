@@ -17,15 +17,27 @@ const LurkPage: React.FC = () => {
     return(
         <div className="page-container">
             <div className="content-wrapper">
-                <div className="left-pane">
-                    <FeedViewer />
-                    <CameraControl />
+                <div className="panes">
+                    <div className="left-pane">
+                        <FeedViewer />
+                        <CameraControl />
+                    </div>
+                    <div className="right-pane">
+                        <SystemStatusViewer />
+                    </div>
                 </div>
-                <div className="right-pane">
-                    <SystemStatusViewer />
+                <div className="test">
+                    <button>Hello</button>
+                    <ul>
+                        <li className="file">
+
+                        </li>
+                    </ul>
                 </div>
-                {/* <ControlButton buttonText="Refresh" onClick={handleFetchClick} /> */}
-                {/* <FileViewer ref={fileViewerRef} /> */}
+                {/* <div className="file-container">
+                    <ControlButton buttonText="Refresh" onClick={handleFetchClick} />
+                    <FileViewer ref={fileViewerRef} />
+                </div> */}
             </div>
         </div>
     )

@@ -10,22 +10,8 @@ import LurkPage from "./containers/lurkPage";
 const App: React.FC = () => {
   return(
     <div>
-      <h1>Lurk Alert</h1>
+      {/* <h1>Lurk Alert</h1> */}
       <LurkPage />
-      {/* <div className="content-wrapper">
-        <div className="left-pane">
-          <FeedViewer />
-          <CameraControl />
-          <CameraControl />
-          <CameraControl />
-        </div>
-
-        <div className="right-pane">
-          <SystemStatusViewer />
-          <ControlButton buttonText="Refresh" onClick={handleFetchClick} />
-          <FileViewer ref={fileViewerRef} />
-        </div>
-      </div> */}
     </div>
   );
 }
