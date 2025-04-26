@@ -1,11 +1,34 @@
-.file-viewer{
-    
+.file-list{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 100vw;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
 
-.file-list{
-    /* display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 10px;
-    list-style: square; */
+.file-list-item{
+    width: 100%;
+    max-width: 100vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 8px;
+    padding: 5px;
+    background-color: var(--color-surface-alt);
+}
+
+.file-list-item div{
+    width: 100%;
+    max-width: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.file-list-item:hover{
+    background-color: var(--color-surface);
 }

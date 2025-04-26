@@ -1,5 +1,7 @@
 import React, { useEffect, useImperativeHandle, forwardRef } from "react";
 import VideoFileItem from "./videoFileItem";
+import ControlButton from "./button";
+import "./fileViewer.css";
 
 interface VideoFile {
     key: string;
@@ -14,7 +16,7 @@ export interface FileViewerRef {
 }
 
 const FileViewer = forwardRef<FileViewerRef>((props, ref) => {
-    const [files, setFiles] = React.useState<VideoFile[]>([]) // Adjust the type as needed
+    const [files, setFiles] = React.useState<VideoFile[]>([]); // Adjust the type as needed
     const [loading, setLoading] = React.useState(true);
 
     useImperativeHandle(ref, () => ({
@@ -51,30 +53,51 @@ const FileViewer = forwardRef<FileViewerRef>((props, ref) => {
     }, []);
 
     return (
-        <div className="file-viewer">
-            {/* <div>
-                <h4>File Viewer</h4>
-            </div> */}
-            {/* <h4>File Viewer</h4> */}
-            {loading ? (
-                <p>Loading...</p>
-            ) : files.length === 0 ? (
-                <p>No files available</p>
-            ) : (
-                <ul className="file-list">
-                    {files.map((file) => (
-                        <VideoFileItem
-                        key={file.fileName}
-                        fileName={file.fileName}
-                        videoLength={file.videoLength}
-                        fileSize={file.fileSize}
-                        fileDate={file.fileDate}
-                        onClick={() => console.log(`Clicked on ${file.fileName}`)}
-                        />
-                    ))}
-                </ul>
-            )}
+        <div className="file-veiwer-container">
+            <ControlButton buttonText="Refresh" onClick={fetchFiles} />
+            <ul className="file-list">
+                <li className="file-list-item">
+                    <div className="file-name">File Name.mp4</div>
+                    <div className="video-length">1:30</div>
+                    <div className="file-date">2023-10-01</div>
+                    <div className="file-size">100 MB</div>
+                    <ControlButton buttonText="Download" onClick={() => console.log("Download clicked")} />
+                    <ControlButton buttonText="Delete" onClick={() => console.log("Delete clicked")} />
+                </li>
+                <li className="file-list-item">
+                    <div className="file-name">File Name.mp4</div>
+                    <div className="video-length">1:30</div>
+                    <div className="file-date">2023-10-01</div>
+                    <div className="file-size">100 MB</div>
+                    <ControlButton buttonText="Download" onClick={() => console.log("Download clicked")} />
+                    <ControlButton buttonText="Delete" onClick={() => console.log("Delete clicked")} />
+                </li>
+            </ul>
         </div>
+        // <div className="file-viewer">
+        //     {/* <div>
+        //         <h4>File Viewer</h4>
+        //     </div> */}
+        //     {/* <h4>File Viewer</h4> */}
+        //     {loading ? (
+        //         <p>Loading...</p>
+        //     ) : files.length === 0 ? (
+        //         <p>No files available</p>
+        //     ) : (
+        //         <ul className="file-list">
+        //             {files.map((file) => (
+        //                 <VideoFileItem
+        //                 key={file.fileName}
+        //                 fileName={file.fileName}
+        //                 videoLength={file.videoLength}
+        //                 fileSize={file.fileSize}
+        //                 fileDate={file.fileDate}
+        //                 onClick={() => console.log(`Clicked on ${file.fileName}`)}
+        //                 />
+        //             ))}
+        //         </ul>
+        //     )}
+        // </div>
     );
 });
 

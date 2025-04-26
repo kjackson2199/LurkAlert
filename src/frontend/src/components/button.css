@@ -17,4 +17,6 @@
     background-color: var(--color-surface-alt);
     color: var(--color-text-special);
     text-shadow: var(--glow-primary), 0 0 10px var(--color-text-special-glow);
+    box-shadow: 0 0 5px var(--color-text-special-glow);
+    transition: all 0.3s ease-in-out;
 }
