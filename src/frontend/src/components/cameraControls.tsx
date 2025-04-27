@@ -9,6 +9,10 @@ const CameraControl: React.FC = () => {
 
     useEffect(() => {
         handleCheckCameraStatus();
+        const interval = setInterval(() => {
+            handleCheckCameraStatus();
+        }, 5000); // Check every 5 seconds
+        return () => clearInterval(interval); // Cleanup on unmount
     }, []);
 
     const handleRecordClick = async () => {
@@ -48,9 +52,9 @@ const CameraControl: React.FC = () => {
     return(
         <div className="control-panel">
             {cameraState === "stopping" || cameraState === "starting" ? null 
-            : cameraState === "idle" ? (
+            : cameraState === "idle" || !isRecording ? (
                 <ControlButton buttonText="Start Recording" useImage={false} imageUri="" onClick={handleRecordClick} />
-            ) : cameraState === "recording" ? (
+            ) : cameraState === "recording" || isRecording ? (
                 <ControlButton buttonText="Stop Recording" useImage={false} imageUri="" onClick={handleRecordClick} />
             ) : (
                 <p>Camera state unknown</p>
