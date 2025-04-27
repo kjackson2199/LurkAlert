@@ -55,6 +55,7 @@
   max-height: 400px;
   border-radius: 12px;
   background-color: var(--color-surface-alt);
+  overflow-y: scroll;
 }
 
 .file-veiwer-container ul{

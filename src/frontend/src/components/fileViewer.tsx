@@ -55,24 +55,24 @@ const FileViewer = forwardRef<FileViewerRef>((props, ref) => {
     return (
         <div className="file-veiwer-container">
             <ControlButton buttonText="Refresh" onClick={fetchFiles} />
-            <ul className="file-list">
-                <li className="file-list-item">
-                    <div className="file-name">File Name.mp4</div>
-                    <div className="video-length">1:30</div>
-                    <div className="file-date">2023-10-01</div>
-                    <div className="file-size">100 MB</div>
-                    <ControlButton buttonText="Download" onClick={() => console.log("Download clicked")} />
-                    <ControlButton buttonText="Delete" onClick={() => console.log("Delete clicked")} />
-                </li>
-                <li className="file-list-item">
-                    <div className="file-name">File Name.mp4</div>
-                    <div className="video-length">1:30</div>
-                    <div className="file-date">2023-10-01</div>
-                    <div className="file-size">100 MB</div>
-                    <ControlButton buttonText="Download" onClick={() => console.log("Download clicked")} />
-                    <ControlButton buttonText="Delete" onClick={() => console.log("Delete clicked")} />
-                </li>
-            </ul>
+            {loading ? (
+                <p>Loading...</p>
+            ) : files.length === 0 ? (
+                <p>No files available</p>
+            ) : (
+                <ul className="file-list">
+                    {files.map((file) => (
+                        <VideoFileItem
+                            key={file.key}
+                            fileName={file.fileName}
+                            videoLength={file.videoLength}
+                            fileSize={file.fileSize}
+                            fileDate={file.fileDate}
+                            onClick={() => console.log(`Clicked on ${file.fileName}`)}
+                        />
+                    ))}
+                </ul>
+            )}
         </div>
         // <div className="file-viewer">
         //     {/* <div>
