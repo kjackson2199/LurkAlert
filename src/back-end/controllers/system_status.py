@@ -64,7 +64,7 @@ class SystemStatus:
         disk_usage = psutil.disk_usage('/')
 
         self.free_disk_space = round(disk_usage.free / (1024**3), 2)
-        self.total_disk_space = round(disk_usage.total / (1024**3, 2))
+        self.total_disk_space = round(disk_usage.total / (1024**3), 2)
         self.percent_disk_space_used = disk_usage.percent
         
         self.cpu_usage = cpu_usage
