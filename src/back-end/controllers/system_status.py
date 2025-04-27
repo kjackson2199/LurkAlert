@@ -71,6 +71,6 @@ class SystemStatus:
         self.memory_used = memory_used_mb
         self.memory_total = memory_total_mb
         self.memory_percent = memory_percent
-        self.cpu_temp_c = cpu_temp
+        self.cpu_temp_c = round(cpu_temp, 1)
         
         
