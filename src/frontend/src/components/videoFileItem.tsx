@@ -46,12 +46,16 @@ const VideoFileItem: React.FC<VideoFileItemProps> = ({ fileName, videoLength, fi
 
     return (
         <li className="file-list-item">
-            <div className="file-name">{fileName}</div>
-            <div className="video-length">{videoLength}</div>
-            <div className="file-date">{new Date(fileDate).toLocaleString()}</div>
-            <div className="file-size">{fileSize}</div>
-            <ControlButton buttonText="Download" onClick={handleDownload} />
-            <ControlButton buttonText="Delete" onClick={handleDelete} />
+            <div className="file-info-panel">
+                <div className="file-name">{fileName}</div>
+                <div className="video-length">{videoLength}</div>
+                <div className="file-date">{new Date(fileDate).toLocaleString()}</div>
+                <div className="file-size">{fileSize}</div>
+            </div>
+            <div className="file-actions-panel">
+                <ControlButton buttonText="Download" onClick={handleDownload} />
+                <ControlButton buttonText="Delete" onClick={handleDelete} />
+            </div>
         </li>
         // <li className="video-file-item" onClick={onClick}>
         //     {/* <label><input type="checkbox" /></label> */}
